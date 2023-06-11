@@ -1,0 +1,283 @@
+
+
+html {
+  overflow: hidden;
+}
+
+h1, h2 {
+  text-align: center;
+  font-size: 48px;
+}
+
+p {
+  font-size: 32px;
+}
+
+body {
+  margin: 0 !important;
+  padding: 0;
+  display: contents;
+}
+
+
+
+p:not(.left) {
+  text-align: center;
+}
+
+a:not(.white):active {
+  color: yellow;
+}
+
+a:not(.white) {
+  color: turquoise;
+}
+
+ul {
+  list-style-type: none;
+  overflow: hidden;
+  top:0;
+  width: 100%;
+  background-color: #2F4C39;
+  margin: 0;
+  z-index: 12;
+  display: absolute;
+  pointer-events: all;
+}
+
+li {
+  float: left;
+  border-right: 2px solid #bbb;
+  margin-right: 5px;
+  font-size: 24px;
+}
+
+li a {
+  display: inline-block;
+  color: white;
+  text-align: center;
+  padding: 12px 16px;
+  text-decoration: none;
+}
+
+li a:hover {
+  background-color: #111;
+}
+
+.reno {
+  font-family: renogare;
+}
+
+.apple {
+  font-family: Apple Kid;
+}
+
+.oneshot {
+  font-family: terminus_ttfbold;
+}
+
+
+.black {
+  color: black;
+}
+
+.white {
+  color: white;
+}
+
+
+
+.dialogue {
+  float: left;
+  width: 80%;
+  margin-left: 3%;
+  color: white;
+  position:absolute;
+}
+
+.portrait {
+  float: right;
+  bottom: 7%;
+  right: 2%;
+  width: 96px;
+  height: 96px;
+  position: absolute;
+}
+
+nav {
+  width : 300px;
+  position: absolute;
+  color: #d9d9d9;
+  top: 58px;
+}
+
+span {
+  padding : 30px;
+  background : #2d2f31;
+  color : white;
+  font-size : 1.2em;
+  font-variant : small-caps;
+  cursor : pointer;
+  display: inline-block;
+}
+
+
+
+#touch {position: absolute; opacity: 0; width: 0px;}
+
+#touch:checked + .slide {width: 80vw;opacity:1}
+
+
+
+
+
+}
+
+.main::-webkit-scrollbar {
+  display: none;
+}
+
+
+  .secondary::-webkit-scrollbar {
+    display: none;
+  }
+
+#musictoggle {
+  bottom: 10px;
+  left: 10px;
+  position: absolute;
+}
+
+.content {
+  border-radius: 60px;
+  margin-left: 5vw;
+  margin-right: 5vw;
+  margin-bottom: 10vh;
+  padding: 2% 10%;
+
+
+}
+
+
+
+.blueoverlay {
+  background: rgba(144, 111, 128, 0.8);
+  box-shadow: 30px 15px rgba(112, 144, 128, 0.3);
+}
+
+.redoverlay {
+  background: rgba(144, 128, 112, 0.5);
+}
+
+
+
+.title {
+  margin: 10vh auto;
+}
+
+.big {
+  font-size: 48px !important;
+}
+
+.small {
+  font-size: 24px;
+}
+
+
+
+#changelog_toggle:checked + #changelog_content {
+  width: 60vw;
+  opacity: 1;
+}
+
+
+
+#changelog_content::-webkit-scrollbar {
+  display: none;
+}
+
+hr {
+  border: 2px dashed white;
+
+}
+
+#titlescreen {
+  background: rgba(10, 0, 20, 0.4);
+  width: 100vw;
+  height: 100vh;
+  float: left;
+  z-index: 15;
+  overflow: hidden;
+  position: absolute;
+  opacity: 1;
+  margin: 0;
+  padding: 0;
+  left: 0;
+  transition: opacity 2s, display 0.5s;
+}
+
+
+
+#musiccontent {
+  z-index: 5;
+  overflow-y: scroll;
+
+  background-attachment: fixed;
+  background-position: center;
+  background-clip: border-box;
+  background-size: cover;
+  background-repeat: no-repeat;
+  width: 50vw;
+  height: 90vh;
+  margin-left:auto;
+  margin-right: auto;
+  position: relative;
+  overflow-y: scroll;
+  padding-left: 20vw;
+  padding-right: 20vw;
+  padding-bottom: 30vh;
+}
+
+#musiccontent::-webkit-scrollbar {
+  display: none;
+}
+
+img {
+  z-index: 11;
+}
+
+@keyframes animate_open {
+  0% {transform: scale(0.2, 0.002); opacity: 0}
+	10% {transform: scale(0.2, 0.002); opacity: 1;}
+	55% {transform: scale(1, 0.002); opacity: 1;}
+	100% {transform: scale(1, 1);}
+}
+.animate_open {
+	animation: animate_open 1.5s ease;
+  animation-iteration-count: 1;
+}
+
+@keyframes animate_close {
+  10% {transform: scale(1, 0.002);}
+  55% {transform: scale(0.2, 0.002); opacity: 1;}
+  100% {transform: scale(0.2, 0.002); opacity: 0;}
+}
+.animate_close {
+	animation: animate_close 2s ease;
+  animation-iteration-count: 1;
+}
+
+#staticlayer {
+  width: 100vw;
+  height: 100vh;
+  float: left;
+  z-index: 3;
+  overflow: hidden;
+  position: absolute;
+  opacity: 0;
+  margin: 0;
+  padding: 0;
+  left: 0;
+  transition: opacity 2s, display 0.5s;
+  pointer-events: none;
+}
