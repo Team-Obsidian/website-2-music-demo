@@ -8,49 +8,50 @@
   <link rel="icon" type="image/x-icon" href="../img/icon/Favicon.png">
 <body onload="load()">
   <div id="musicbackground" class="big apple">
-    <ul class="navbar white reno">
-      <li><a class="" href="../index.html">Home</a></li>
-      <li><a class="" href="games.html">Games</a></li>
-      <li><a class="" href="music.html">Music</a></li>
-      <li><a class="" href="#">Misc</a></li>
-    </ul>
   </div>
 
     <div id="musiccontent" class="black apple">
 <br><br><br><br><br><br>
 <p id="welcome">welcome to the music testing page</p>
-<p>this place will get updated soon but here, you'll be able to listen to every song that I've uploaded on this website[40 songs]</p>
-<p id="displaysong">Song file name: ~3dworldmysteryhouse.mp3~</p>
-<p id="displaysongnum">Track #0</p>
+<p>this place will get updated soon but here, you'll be able to listen to every song that I've uploaded on this website</p>
+<p id="displaysong">No song currently playing [TEMP]</p> 
+<p id="displaysongnum">Track #0[TEMP]</p>
+<p id="displaysongalbum">Song Album[TEMP]</p>
+<p>this was so hasilty written, forgive me</p>
+<p>metadata implementation pending</p>
   <script language="javascript" src="howler.js"></script>
   <script language="javascript" src="jquery.min.js"></script>
-    <script language="javascript" src="xml2json.min.js"></script>
+
+  
   <script>
     var list = []
 //duration()
 var i=0;
 
+
+    
     
 function autoplay(i_, list) {
     i = i_;
     this.howl = new Howl({
         src: [list[i]],
         preload: true,
+        volume: 1.0,
         autoplay: true,
         onend: function () {
             if ((i + 1) == list.length) {
                 i == 0;
                 autoplay(0, list);
                 console.log(i);
-                document.getElementById("displaysong").innerHTML = "Song file name: ~" + list[i].substring(9) + "~";
-                document.getElementById("displaysongnum").innerHTML = "Track #" + i;
+                //document.getElementById("displaysong").innerHTML = "Song file name: ~" + list[i].substring(9) + "~";
+                //document.getElementById("displaysongnum").innerHTML = "Track #" + i;
             } else {
                 i += 1;
                 autoplay(i, list);
                 console.log(i);
-                document.getElementById("displaysong").innerHTML = "Song file name: ~" + list[i].substring(9) + "~";
-                document.getElementById("displaysongnum").innerHTML = "Track #" + i;
-                console.log(list[i].substring(9));
+                //document.getElementById("displaysong").innerHTML = "Song file name: ~" + list[i].substring(9) + "~";
+                //document.getElementById("displaysongnum").innerHTML = "Track #" + i;
+                //console.log(list[i].substring(9));
             }
         }
     })
@@ -71,8 +72,8 @@ function skip() {
 function shuffle() {
   this.howl.pause();
   autoplay(randomnum(), list);
-  document.getElementById("displaysong").innerHTML ="Song file name: ~" + list[i].substring(9) + "~";
-  document.getElementById("displaysongnum").innerHTML = "Track #" + i;
+  //document.getElementById("displaysong").innerHTML ="Song file name: ~" + list[i].substring(9) + "~";
+  //document.getElementById("displaysongnum").innerHTML = "Track #" + i;
   this.howl.play();
 }
 
@@ -117,7 +118,8 @@ function displaytesttest () {
 }
 
 async function load() {
-    let url = 'https://api.github.com/repos/team-obsidian/website-2/git/trees/main?recursive=1';
+//    let url = 'https://api.github.com/repos/team-obsidian/website-2/git/trees/main?recursive=1';
+    let url = 'https://api.github.com/repos/team-obsidian/mus-think/git/trees/main?recursive=1';
     jsonRaw = await (await fetch(url)).json();
     console.log(jsonRaw);
 //    var object = JSON.parse(JSON.stringify(jsonRaw));
@@ -125,9 +127,11 @@ async function load() {
 //    document.getElementById("json-view").innerHTML = JSON.stringify(jsonRaw);
 
     for (var i=0 ; i < jsonRaw.tree.length ; i++) {
-      if (jsonRaw.tree[i].path.search("sound/") >= 0) {
+//      if (jsonRaw.tree[i].path.search("sound/") >= 0) {
+        if (jsonRaw.tree[i].path.search("mp3") >= 0) {
         console.log(jsonRaw.tree[i].path);
-        list.push("https://github.com/Team-Obsidian/website-2/raw/main/" + jsonRaw.tree[i].path);
+        //list.push("https://github.com/Team-Obsidian/website-2/raw/main/" + jsonRaw.tree[i].path);
+        list.push("https://github.com/Team-Obsidian/mus-think/raw/main/" + jsonRaw.tree[i].path);
       }
   }  
   console.log(list);
@@ -194,13 +198,13 @@ async function savelistdirectory() {
 }
 </script>
       
-<img src="../img/icon/forestbunny.gif" onclick="shuffle()"><p>Skip to a random song</p>
-<img src="../img/icon/dustbunny.gif" onclick="skip()"><p>Next Song</p>
-<img src="../img/icon/cupcakebunny.gif" onclick="audiotoggle()"><p>Turn on and off the music</p>
+<img src="https://team-obsidian.github.io/website-2/img/icon/forestbunny.gif" onclick="shuffle()"><p>Skip to a random song</p>
+<img src="https://team-obsidian.github.io/website-2/img/icon/dustbunny.gif" onclick="skip()"><p>Next Song</p>
+<img src="https://team-obsidian.github.io/website-2/img/icon/cupcakebunny.gif" onclick="audiotoggle()"><p>Turn on and off the music</p>
 
-<p id="json-view" onclick="load()">clickme</p>
+<p id="json-view" onclick="load()">Export List in Console[DEV]</p>
 
-<p id="json-playlist" onclick="savelistdirectory()">clickme2</p>
+<p id="json-playlist" onclick="savelistdirectory()">Test directory output[DEV]</p>
 
 
 
@@ -280,6 +284,7 @@ async function savelistdirectory() {
 <button type="button" onclick="displaytesttest()">Check Console</button>
 <button type="button" onclick="savesong()">Save song and display</button>
 -->
+
 </div>
 <!--
 </head>

@@ -9,7 +9,6 @@ app.listen(8080);
 
 
 
-
 var cors = require('cors')
 app.use(cors())
  
@@ -20,4 +19,5 @@ app.get('/products/:id', function (req, res, next) {
 app.listen(80, function () {
   console.log('CORS-enabled web server listening on port 80')
 })
+
 
