@@ -32,7 +32,7 @@ a:not(.white):active {
 a:not(.white) {
   color: turquoise;
 }
-
+/*
 ul {
   list-style-type: none;
   overflow: hidden;
@@ -63,7 +63,7 @@ li a {
 li a:hover {
   background-color: #111;
 }
-
+*/
 .reno {
   font-family: renogare;
 }
@@ -110,7 +110,7 @@ nav {
   color: #d9d9d9;
   top: 58px;
 }
-
+/*
 span {
   padding : 30px;
   background : #2d2f31;
@@ -120,7 +120,7 @@ span {
   cursor : pointer;
   display: inline-block;
 }
-
+*/
 
 
 #touch {position: absolute; opacity: 0; width: 0px;}
@@ -221,13 +221,13 @@ hr {
 #musiccontent {
   z-index: 5;
   overflow-y: scroll;
-
+  background-image: url("https://website-2-2.teamobsidianasterisk.repl.co/img/background/snow.webp");
   background-attachment: fixed;
   background-position: center;
   background-clip: border-box;
   background-size: cover;
   background-repeat: no-repeat;
-  width: 50vw;
+  width: 60vw;
   height: 90vh;
   margin-left:auto;
   margin-right: auto;
@@ -236,6 +236,12 @@ hr {
   padding-left: 20vw;
   padding-right: 20vw;
   padding-bottom: 30vh;
+}
+
+#songListContainer {
+  height: 20vh;
+  overflow-x: hidden;
+  overflow-y: scroll;
 }
 
 #musiccontent::-webkit-scrollbar {
