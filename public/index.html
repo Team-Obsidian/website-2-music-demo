@@ -22,9 +22,17 @@
   <script language="javascript" src="howler.js"></script>
   <script language="javascript" src="jquery.min.js"></script>
 <script src="//cdn.jsdelivr.net/npm/eruda"></script>
-<script>eruda.init();</script>
+<script>//eruda.init();</script>
   
   <script>
+$(document).ready(function(){
+  $("#waitscreen").click(function(){
+    $("#waitscreen").css({"display": "none"});
+    rememberList()
+  });
+});
+
+
     var list = []
     var listname = []
 //duration()
@@ -136,42 +144,19 @@ function changeText2(trackList, listOfSongs) {
     document.getElementById("trueSongList").appendChild(entry);
     document.getElementById("trueSongList").appendChild(document.createElement('br'));
 }
-    
-/*
 
-//localstorage testing
-if (typeof localStorage === "undefined" || localStorage === null) {
-  var LocalStorage = require('node-localstorage').LocalStorage;
-  localStorage = new LocalStorage('./scratch');
-}
-
-localStorage.setItem('myFirstKey', 'myFirstValue');
-console.log(localStorage.getItem('myFirstKey'));
-
-function set1 () {
-  sessionStorage.test = 'left';
-}
-
-function set2 () {
-  sessionStorage.test = 'right';
-}
-
-function defaulty2 () {
-  sessionStorage.test = 'default';
-}
-
-function displaytesttest () {
-  console.log(sessionStorage.test)
-}
-*/
-async function load() {
+async function load(playlistid) {
+    sessionStorage.setItem("playlistid", playlistid);
     console.log(howl.state());
     if (howl.state()!="unloaded") {
       howl.unload();
       list = [];
       listname = [];
     }
-    let url = "https://api.github.com/repos/team-obsidian/" + document.getElementById("playlistList").value + "/git/trees/main?recursive=1";
+    console.log("Load | Saved playlist = " + playlistid);
+
+  
+    let url = "https://api.github.com/repos/team-obsidian/" + playlistid + "/git/trees/main?recursive=1";
     jsonRaw = await (await fetch(url)).json();
     console.log(jsonRaw);
 //    var object = JSON.parse(JSON.stringify(jsonRaw));
@@ -185,7 +170,7 @@ async function load() {
         console.log(jsonRaw.tree[i].path);
         listname.push(jsonRaw.tree[i].path);
         changeText2(i + 1, jsonRaw.tree[i].path);
-        list.push("https://github.com/Team-Obsidian/" + document.getElementById("playlistList").value + "/raw/main/" + jsonRaw.tree[i].path);
+        list.push("https://github.com/Team-Obsidian/" + playlistid + "/raw/main/" + jsonRaw.tree[i].path);
 
 
       }
@@ -205,36 +190,33 @@ async function load() {
 //document.querySelector('ul').appendChild(document.createElement('li'));
 
 }
-  
 
-
-    
-    /*
-
-https://api.github.com/repos/team-obsidian/website-2/git/trees/main?recursive=1
-
-
-function savesong (i_m) {
-  i_m = i
-  sessionStorage.songnum = i;
-  sessionStorage.songscan = this.howl.seek();
-  console.log(sessionStorage.songnum);
-  console.log(sessionStorage.songscan);
-}
-
-function loadsong (i_h) {
-  if (sessionStorage.songnum = undefined) {
+function rememberList() {
+  if (sessionStorage.getItem("playlistid") == "null" || sessionStorage.getItem("playlistid") == null) {
+    console.log("No playlistid remembered.")
     return;
-  } else {
-    this.howl.stop();
-    i_h = i;
-    i = sessionStorage.songnum;
-    this.howl.seek(sessionStorage.songscan);
-    this.howl.play();
+  }
+  else {
+    load(sessionStorage.getItem("playlistid"));
   }
 }
-*/
-//defaulty2();
+
+// Save data to sessionStorage
+
+
+// Get saved data from sessionStorage
+//let data = sessionStorage.getItem("key");
+
+// Remove saved data from sessionStorage
+//sessionStorage.removeItem("key");
+
+// Remove all saved data from sessionStorage
+//sessionStorage.clear();
+
+function removewait() {
+  $("#waitscreen").css({"opacity": "0"});
+    }
+
   </script>
 
 <script>
@@ -272,7 +254,7 @@ async function savelistdirectory() {
 
 
       
-<p id="json-view" onclick="load()">Export List in Console[DEV]</p>
+
 
 <p id="json-playlist" onclick="savelistdirectory()">Test directory output[DEV]</p>
 
@@ -309,11 +291,14 @@ function updateSongName() {
   <option value="mus-somebody">Somebody's list</option>
   <option value="mus-think">Thinklist</option>
 </select> 
+
+
   
 </form>
-<button onclick="load()">Load Button</button>
+<button onclick="load(document.getElementById('playlistList').value)">Load Button</button>
 <br>
-  
+<button onclick="sessionStorage.clear()">Clear sessionStorage</button>
+<br>
   <div id="songListContainer">
 <ul id="trueSongList"style="list-style-type:none;"></ul>
   </div>
@@ -395,13 +380,6 @@ function updateSongName() {
 -->
 
 </div>
-<!--
-</head>
-      <ul class="navbar">
-        <li><a class="white navbar reno" href="../index.html">Home</a></li>
-        <li><a class="white navbar reno" href="games.html">Games</a></li>
-        <li><a class="white reno" href="#">Music</a></li>
-        <li><a class="white reno" href="#">Misc</a></li>
-      </ul>
+  <div id="waitscreen" onclick=""></div>
 </body>
 </html>
