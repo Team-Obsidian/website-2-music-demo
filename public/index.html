@@ -30,7 +30,7 @@
 //duration()
 var i=0;
 
-var shuffletoggle = true;
+var shuffletoggle = false;
 
 function toggleshuffle() {
   if (shuffletoggle==false) {
@@ -51,12 +51,12 @@ function autoplay(i_, list) {
         onplay: function () {
           document.getElementById("displaysong").innerHTML = "Song file name: ~" + listname[i] + "~";
           document.getElementById("displaysongnum").innerHTML = "Track #" + String(i + 1);
-
-          console.log(listname[i] + " ~ " + i);
+          howl.volume(document.getElementById("volumeSlide").value);
+          console.log(listname[i] + " ~ " + i);       
         },
         onend: function () {
 
-          if (shuffletoggle != true) {
+          if (shuffletoggle = false) {
             if ((i + 1) >= list.length) {
                 autoplay(0, list);
                 console.log(i);
@@ -69,7 +69,8 @@ function autoplay(i_, list) {
             }
           } else {
             shuffle();
-          }
+          } 
+        updateSongName();
         }
     })
 }
@@ -77,13 +78,16 @@ function autoplay(i_, list) {
 var jsonRaw = "testing";
     
 function skip() {
+    console.log("1: i=" + i);
     this.howl.unload();
     if (shuffletoggle != true) {
-      if (i+1>=list.length) {
-        autoplay(0, list);
-      } else {
-      this.howl.unload();
-      autoplay(i+1, list); }} else {
+      console.log("shuffletoggle false i=" + i);
+        if (i+1>=list.length) {
+          autoplay(0, list);
+        } else {
+        this.howl.unload();
+        autoplay(i+1, list); }
+    } else {
         shuffle()
     }
 }
@@ -98,8 +102,11 @@ function skip() {
 */
 
 function shuffle() {
+  let shuffleNum = randomnum() - 1;
+  if (shuffleNum == i) {shuffle()} else {
   this.howl.unload();
-  autoplay(randomnum() - 1, list);
+  autoplay(shuffleNum, list);
+  }
 }
 
 function randomnum() {
@@ -188,7 +195,11 @@ async function load() {
   
   document.getElementById("displayshuffle").innerHTML = "Shuffle Status: " + shuffletoggle.toString();
   document.getElementById("inputSong").setAttribute("max", listname.length);
-
+  document.getElementById("inputSong").setAttribute("value", 1);
+  document.getElementById("inputSong").removeAttribute("readonly");
+  showValue(document.getElementById("volumeSlide").value);   
+  updateSongName();
+  
 
 
 //document.querySelector('ul').appendChild(document.createElement('li'));
@@ -274,8 +285,11 @@ function showValue(newValue) {
 }
 
 function selectSong() {
+  if (document.getElementById("inputSong").value - 1 == i) {return} else {
   this.howl.unload();
-  autoplay(document.getElementById("inputSong").value - 1, list);
+  i = document.getElementById("inputSong").value-1;
+  autoplay(i, list);
+  }
 }
 
 function updateSongName() {
@@ -283,10 +297,10 @@ function updateSongName() {
 }
 
 </script>
-<input type="range" min="0" max="1" value="0.75" step="0.05" onchange="showValue(this.value)" oninput="showValue(this.value)">
+<input id="volumeSlide" type="range" min="0" max="1" value="0.75" step="0.05" onchange="showValue(this.value)" oninput="showValue(this.value)">
 <span id="range">0.75</span>
 <br>
-<input id="inputSong" type="number" max="1" min="1" onchange="updateSongName()"><button onclick="selectSong()" id="songButton">Change Song</button>
+<input id="inputSong" type="number" max="1" min="1" value="1" onchange="updateSongName()" readonly><button onclick="selectSong()" id="songButton">Change Song</button>
 <p id="selectSongName">insert song here</p>
 
 
